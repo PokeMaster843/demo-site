@@ -25,7 +25,7 @@ function currentColor() {
 <template>
     <div
     class="d-flex flex-column"
-    style="position: absolute; bottom: 2em; right: 2em;">
+    style="position: fixed; bottom: 2em; right: 2em;">
         
         <div
         class="d-flex flex-column anim-container">
@@ -81,27 +81,12 @@ function currentColor() {
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+$numColors: 4;
 
 .contracted {
     transition-delay: 0.1s;
     transition: translate 0.2s;
-}
-
-.contracted:nth-child(1) {
-    translate: 0px calc((57px + 1em) * 4);
-}
-
-.contracted:nth-child(2) {
-    translate: 0px calc((57px + 1em) * 3);
-}
-
-.contracted:nth-child(3) {
-    translate: 0px calc((57px + 1em) * 2);
-}
-
-.contracted:nth-child(4) {
-    translate: 0px calc((57px + 1em) * 1);
 }
 
 .expanded {
@@ -110,21 +95,13 @@ function currentColor() {
     transition: translate;
 }
 
-/* TODO: make this automatic */
-.expanded:nth-child(1) {
-    transition-duration: 0.4s;
-}
-
-.expanded:nth-child(2) {
-    transition-duration: 0.3s;
-}
-
-.expanded:nth-child(3) {
-    transition-duration: 0.2s;
-}
-
-.expanded:nth-child(4) {
-    transition-duration: 0.1s;
+@for $i from 1 through $numColors {
+    .contracted:nth-child(#{$i}) {
+        translate: 0px calc((57px + 1em) * (($numColors + 1) - $i));
+    }
+    .expanded:nth-child(#{$i}) {
+        transition-duration: (($numColors + 1) - $i) * 0.067s;
+    }
 }
 
 .selected {

@@ -1,4 +1,7 @@
 <script setup>
+// library imports
+
+// project imports
 import AppBar from "@/components/AppBar.vue";
 import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
 import { clicked } from "@/references";
@@ -23,7 +26,7 @@ defineProps({
     </app-bar>
 
     <v-main
-    class="h-screen page-container"
+    class="page-container"
     @click="clicked = !clicked">
         <v-container
         class="page-content"
@@ -37,10 +40,8 @@ defineProps({
 
 <style scoped>
 .page-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
     background-color: rgb(var(--v-theme-surface-variant));
+    min-height: 100vh;
+    height: fit-content;
 }
 </style>

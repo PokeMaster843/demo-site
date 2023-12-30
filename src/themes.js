@@ -9,7 +9,7 @@ function mixLight(accentColor="#000000") {
             surface: "#ffffff",
             "surface-variant": "#d1d1d1",
             invert: "#121212",
-            "icon-color": accentColor,
+            "accent-color": accentColor,
             "highlight": "#555555"
         }
     };
@@ -21,7 +21,7 @@ function mixDark(accentColor="#ffffff") {
         colors: {
             "surface-variant": "#2e2e2e",
             invert: "#ededed",
-            "icon-color": accentColor,
+            "accent-color": accentColor,
             "highlight": "#aaaaaa"
         }
     };

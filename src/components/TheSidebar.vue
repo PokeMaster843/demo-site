@@ -1,8 +1,8 @@
 <script setup>
-import { sitePages, currentPage, navDrawer } from "@/references";
 import { useDisplay } from "vuetify";
+import { sitePages, navDrawer } from "@/references";
 
-const { mobile } = useDisplay();
+const { mdAndUp } = useDisplay();
 
 defineProps({
     pages: {
@@ -17,8 +17,8 @@ defineProps({
     location="left"
     v-model="navDrawer"
     expand-on-hover
-    :rail="!mobile"
-    :permanent="!mobile"
+    :rail="mdAndUp"
+    :permanent="mdAndUp"
     color="surface">
         <v-list nav>
             <template
@@ -27,12 +27,11 @@ defineProps({
                 <v-list-item
                 v-if="!page.hasChildren"
                 :title="page.title"
-                :to="{name: page.to}"
-                @click="currentPage = page">
+                :to="{name: page.to}">
                     <template v-slot:prepend>
                         <v-icon
                         :icon="page.icon"
-                        color="icon-color">
+                        color="accent-color">
                         </v-icon>
                     </template>
                 </v-list-item>
@@ -49,7 +48,7 @@ defineProps({
                             <template v-slot:prepend>
                                 <v-icon
                                 :icon="page.icon"
-                                color="icon-color">
+                                color="accent-color">
                                 </v-icon>
                             </template>
                         </v-list-item>
@@ -60,12 +59,11 @@ defineProps({
                     v-for="(child, subindex) in page.children"
                     :key="subindex"
                     :title="child.title"
-                    :to="{name: child.to}"
-                    @click="currentPage = page">
+                    :to="{name: child.to}">
                         <template v-slot:prepend>
                             <v-icon
                             :icon="child.icon"
-                            color="icon-color">
+                            color="accent-color">
                             </v-icon>
                         </template>
                     </v-list-item>

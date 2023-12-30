@@ -1,8 +1,8 @@
 <script setup>
-import { navDrawer } from "@/references";
 import { useDisplay } from "vuetify";
+import { navDrawer } from "@/references";
 
-const { mobile } = useDisplay();
+const { mdAndUp } = useDisplay();
 
 defineProps({
     pageTitle: {
@@ -19,9 +19,9 @@ defineProps({
 <template>
     <v-app-bar>
         <v-app-bar-nav-icon
-        v-if="mobile"
+        v-if="!mdAndUp"
         @click="navDrawer = !navDrawer"
-        color="icon-color">
+        color="accent-color">
         </v-app-bar-nav-icon>
 
         <v-toolbar-title>

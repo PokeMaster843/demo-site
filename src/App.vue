@@ -1,5 +1,4 @@
 <script setup>
-//import { sitePages } from "@/references";
 import TheSidebar from "@/components/TheSidebar.vue";
 </script>
 

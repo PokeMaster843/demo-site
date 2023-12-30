@@ -61,7 +61,7 @@ function currentColor() {
             <template v-slot:default>
                 <v-icon
                 icon="mdi-select-color"
-                color="icon-color"></v-icon>
+                color="accent-color"></v-icon>
             </template>
         </v-btn>
 
@@ -75,7 +75,7 @@ function currentColor() {
             <template v-slot:default>
                 <v-icon
                 icon="mdi-theme-light-dark"
-                color="icon-color"></v-icon>
+                color="accent-color"></v-icon>
             </template>
         </v-btn>
     </div>

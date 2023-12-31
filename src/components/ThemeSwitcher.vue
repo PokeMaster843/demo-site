@@ -28,13 +28,11 @@ function currentColor() {
     style="position: fixed; bottom: 2em; right: 2em;">
         
         <div
-        class="d-flex flex-column anim-container">
+        class="d-flex flex-column">
             <div
             v-for="(color, index) in colorThemes"
             :key="index"
-            :class="{ expanded: expanded, contracted: !expanded }"
-            class="accent-color-button-container"
-            :style="'opacity:' + (expanded ? '1' : '1')">
+            :class="{ expanded: expanded, contracted: !expanded }">
                 <v-btn
                 :class="{ selected: color.selected && expanded }"
                 class="ma-2"
@@ -52,30 +50,26 @@ function currentColor() {
         class="ma-2"
         elevation="2"
         density="comfortable"
-        icon=""
+        icon="mdi-select-color"
         size="56"
         color="surface"
         style="box-shadow: 0px 0px 2px 2px rgb(var(--v-theme-surface)) !important;"
         @click="expanded = !expanded"
         title="Select accent color">
             <template v-slot:default>
-                <v-icon
-                icon="mdi-select-color"
-                color="accent-color"></v-icon>
+                <v-icon color="accent-color"></v-icon>
             </template>
         </v-btn>
 
         <v-btn class="ma-2"
         elevation="1"
         density="comfortable"
-        icon=""
+        icon="mdi-theme-light-dark"
         size="56"
         @click="toggleDark()"
         title="Toggle dark mode">
             <template v-slot:default>
-                <v-icon
-                icon="mdi-theme-light-dark"
-                color="accent-color"></v-icon>
+                <v-icon color="accent-color"></v-icon>
             </template>
         </v-btn>
     </div>

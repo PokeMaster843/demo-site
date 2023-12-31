@@ -53,8 +53,14 @@ const aboutMeCarousel = ref([
     codeCarousel
 ]);
 
-const carouselWidth = ref(500);
-const carouselHeight = ref(300);
+const aspectRatio = 16 / 9;
+
+function carouselHeight(width) {
+    // if xs or sm screen, only adjust by scrollbar; on larger screens, also adjust by 56px sidebar
+    let adjustedWidth = width < 960 ? (width - 10) : (width - 66);
+    let occupiedCols = width < 600 ? 1 : (width < 960 ? (7 / 12) : (5 / 12));
+    return adjustedWidth * occupiedCols / aspectRatio;
+}
 
 const clicked = ref(true);
 const navDrawer = ref(null);
@@ -69,9 +75,9 @@ export {
     sitePages,
 
     aboutMeCarousel,
-    carouselWidth,
     carouselHeight,
 
+    aspectRatio,
     clicked,
     navDrawer
 };

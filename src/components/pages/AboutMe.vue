@@ -1,18 +1,123 @@
 <script setup>
+// library imports
+import { ref } from "vue";
+import { useDisplay } from "vuetify";
+
+// project imports
 import PageContent from "@/components/PageContent.vue";
 import photoSelf from "@/assets/photo-self.jpg";
-import { aboutPage } from "@/references";
+import { aboutPage, aboutMeCarousel, carouselHeight, aspectRatio } from "@/references";
+
+const carousel = ref(null);
+const { xs, width } = useDisplay();
 </script>
 
 <template>
     <page-content :page-title="aboutPage.title">
-        <v-img
-        :src="photoSelf"
-        width="200"
-        style="border-radius: 50%;">
-        </v-img>
+        <!--TODO: make banner with image and text saying "Hello, I'm John Knickerbocker."-->
+        <v-row>
+            <v-col
+            cols="12"
+            sm="5"
+            md="4"
+            lg="3"
+            style="text-align: center;">
+                <v-img
+                :src="photoSelf"
+                style="border-radius: 50%; margin: auto;"
+                :width="carouselHeight(width)-56">
+                </v-img>
+
+                <h3 style="font-style: italic;">
+                    Hello, I'm John Knickerbocker! Welcome to my site!
+                    <template v-if="xs">
+                        I hope the mobile/small-screen version is to your liking!
+                    </template>
+                </h3>
+            </v-col>
+
+            <!--to avoid feeling of cramped screen, add some spacing between profile photo and rest of page on xs screens-->
+            <v-col
+            v-if="xs"
+            cols="12">
+            <div style="width: 100%; height: 10vh;"></div>
+            </v-col>
+
+            <v-spacer
+            v-else>
+            </v-spacer>
+
+            <v-col
+            order="last"
+            order-md="2"
+            cols="12"
+            sm="12"
+            md="3"
+            lg="3">
+                <v-carousel
+                class="h-auto"
+                v-model="carousel"
+                :show-arrows="false"
+                hide-delimiters>
+                    <v-carousel-item
+                    v-for="(item, index) in aboutMeCarousel"
+                    :key="item"
+                    :value="index">
+                        <div
+                        class="carousel-description-container custom-scrollbar"
+                        :style="'max-height:' + carouselHeight(width) + 'px'">
+                            <p
+                            style="font-size: small;"
+                            v-if="carousel !== null">
+                                <template v-for="i in 15" :key="i">
+                                    {{ aboutMeCarousel[carousel].desc + ' ' }}
+                                </template>
+                            </p>
+                        </div>
+                    </v-carousel-item>
+                </v-carousel>
+            </v-col>
+
+            <v-col
+            order="3"
+            cols="12"
+            sm="7"
+            md="5"
+            lg="5">
+                <v-carousel
+                class="h-auto"
+                v-model="carousel"
+                show-arrows="hover"
+                hide-delimiter-background>
+                    <v-carousel-item
+                    v-for="(item, index) in aboutMeCarousel"
+                    :key="item"
+                    :value="index"
+                    :src="item.src"
+                    width="100%"
+                    :aspect-ratio="aspectRatio">
+                    </v-carousel-item>
+                </v-carousel>
+            </v-col>
+        </v-row>
+
+        <hr class="content-separator">
+
+        <v-row>
+            <v-col cols="auto">
+                <p>Verbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes hereVerbose and professional about me info goes hereVerbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes here</p>
+            </v-col>
+        </v-row>
     </page-content>
 </template>
 
 <style scoped>
+.content-separator {
+    color: rgb(var(--v-theme-accent-color));
+    background-color: rgb(var(--v-theme-accent-color));
+}
+.carousel-description-container {
+    text-align: justify;
+    overflow-y: auto;
+}
 </style>

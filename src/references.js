@@ -23,9 +23,9 @@ const  aboutPage = createPage(      "About Me",       "mdi-information",  "about
 const whyVuePage = createPage(   "Why Vue.js?",             "mdi-vuejs", "whyvue");
 const resumePage = createPage(        "Resumé",      "mdi-file-account", "resume");
 const  demosPage = createPage("Demonstrations", "mdi-application-array",  "demos", true, [
-    createChildPage("Demo 1", "demos"),
-    createChildPage("Demo 2", "demos"),
-    createChildPage("Demo 3", "demos")
+    createChildPage("Demo 1", "demoA"),
+    createChildPage("Demo 2", "demoB"),
+    createChildPage("Demo 3", "demoC")
 ]);
 const currentPage = ref(homePage);
 const sitePages = ref([
@@ -62,6 +62,21 @@ function carouselHeight(width) {
     return adjustedWidth * occupiedCols / aspectRatio;
 }
 
+function createInfoSection(name, title) {
+    return {
+        name: name,
+        title: title
+    };
+}
+
+const demoA = ref([
+    createInfoSection("detailsA", "Details A"),
+    createInfoSection("detailsB", "Details B"),
+    createInfoSection("detailsC", "Details C"),
+    createInfoSection("detailsD", "Details D"),
+    createInfoSection("detailsE", "Details E")
+]);
+
 const clicked = ref(true);
 const navDrawer = ref(null);
 
@@ -76,6 +91,8 @@ export {
 
     aboutMeCarousel,
     carouselHeight,
+
+    demoA,
 
     aspectRatio,
     clicked,

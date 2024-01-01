@@ -28,19 +28,21 @@ const { xs, width } = useDisplay();
                 :width="carouselHeight(width)-56">
                 </v-img>
 
-                <h3 style="font-style: italic;">
+                <div
+                class="text-subtitle-1"
+                style="font-style: italic;">
                     Hello, I'm John Knickerbocker! Welcome to my site!
                     <template v-if="xs">
                         I hope the mobile/small-screen version is to your liking!
                     </template>
-                </h3>
+                </div>
             </v-col>
 
             <!--to avoid feeling of cramped screen, add some spacing between profile photo and rest of page on xs screens-->
             <v-col
             v-if="xs"
             cols="12">
-            <div style="width: 100%; height: 10vh;"></div>
+                <div style="width: 100%; height: 10vh;"></div>
             </v-col>
 
             <v-spacer
@@ -66,13 +68,13 @@ const { xs, width } = useDisplay();
                         <div
                         class="carousel-description-container custom-scrollbar"
                         :style="'max-height:' + carouselHeight(width) + 'px'">
-                            <p
-                            style="font-size: small;"
+                            <div
+                            class="text-body-2"
                             v-if="carousel !== null">
                                 <template v-for="i in 15" :key="i">
                                     {{ aboutMeCarousel[carousel].desc + ' ' }}
                                 </template>
-                            </p>
+                            </div>
                         </div>
                     </v-carousel-item>
                 </v-carousel>
@@ -105,7 +107,10 @@ const { xs, width } = useDisplay();
 
         <v-row>
             <v-col cols="auto">
-                <p>Verbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes hereVerbose and professional about me info goes hereVerbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes here</p>
+                <div
+                class="text-body-1">
+                    Verbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes hereVerbose and professional about me info goes hereVerbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes here Verbose and professional about me info goes here
+                </div>
             </v-col>
         </v-row>
     </page-content>

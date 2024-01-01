@@ -5,6 +5,7 @@ import { demosPage } from "@/references";
 
 <template>
     <page-content :page-title="demosPage.title">
+        <router-view></router-view>
     </page-content>
 </template>
 

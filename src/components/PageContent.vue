@@ -23,7 +23,11 @@ defineProps({
     <app-bar
     :page-title="pageTitle"
     :include-extension="includeExtension">
-        <slot name="tabs"></slot>
+        <v-tabs
+        v-model="store.tabs"
+        align-tabs="title">
+            <slot name="tabs"></slot>
+        </v-tabs>
     </app-bar>
 
     <!--main container element-->
@@ -34,6 +38,12 @@ defineProps({
         <v-container
         class="page-content"
         fluid>
+            <v-window
+            v-if="includeExtension"
+            v-model="store.tabs">
+                <slot name="window"></slot>
+            </v-window>
+
             <slot></slot>
         </v-container>
 

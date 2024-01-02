@@ -18,6 +18,9 @@ export const store = reactive({
     // toggles sidebar visibility
     toggleNavDrawer() {
         this.navDrawer = !this.navDrawer;
-    }
+    },
+
+    // VModel bound to VTabs component of site appbar
+    tabs: null,
 
 });

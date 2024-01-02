@@ -1,13 +1,12 @@
 <script setup>
 // library imports
-import { ref } from "vue";
 import { useDisplay } from "vuetify";
 
 // project imports
 import { sitePages } from "@/references";
+import { store } from "@/reactives";
 
 const { mdAndUp } = useDisplay();
-const navDrawer = ref(null);
 
 defineProps({
     pages: {
@@ -20,7 +19,7 @@ defineProps({
 <template>
     <v-navigation-drawer
     location="left"
-    v-model="navDrawer"
+    v-model="store.navDrawer"
     expand-on-hover
     :rail="mdAndUp"
     :permanent="mdAndUp"

@@ -1,6 +1,6 @@
 <script setup>
 import { useDisplay } from "vuetify";
-import { navDrawer } from "@/references";
+import { store } from "@/reactives";
 
 const { mdAndUp } = useDisplay();
 
@@ -20,7 +20,7 @@ defineProps({
     <v-app-bar>
         <v-app-bar-nav-icon
         v-if="!mdAndUp"
-        @click="navDrawer = !navDrawer"
+        @click="store.toggleNavDrawer()"
         color="accent-color">
         </v-app-bar-nav-icon>
 

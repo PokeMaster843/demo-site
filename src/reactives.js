@@ -11,5 +11,13 @@ export const store = reactive({
     // closes theme accent color list (sets expanded state to false)
     closeList() {
         this.themeListExpanded = false;
+    },
+
+    // VModel bound to site sidebar
+    navDrawer: null,
+    // toggles sidebar visibility
+    toggleNavDrawer() {
+        this.navDrawer = !this.navDrawer;
     }
+
 });

@@ -1,4 +1,5 @@
 <script setup>
+// project imports
 import TheSidebar from "@/components/TheSidebar.vue";
 </script>
 
@@ -11,19 +12,4 @@ import TheSidebar from "@/components/TheSidebar.vue";
 </template>
 
 <style scoped>
-.notExpanded {
-    rotate: 180deg;
-    transition: rotate 0.2s;
-}
-
-.expanded {
-    rotate: 360deg;
-    transition: rotate 0.2s;
-}
-
-.subpage {
-    text-align: center;
-    width: 66%;
-    margin-left: 33%;
-}
 </style>

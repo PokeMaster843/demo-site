@@ -21,16 +21,18 @@ defineProps({
         <v-app-bar-nav-icon
         v-if="!mdAndUp"
         @click="store.toggleNavDrawer()"
-        color="accent-color">
+        color="accent-color"
+        data-cy="sm-menu">
         </v-app-bar-nav-icon>
 
-        <v-toolbar-title>
-            <span>
-                {{ pageTitle }}
-            </span>
+        <v-toolbar-title
+        data-cy="page-title">
+            {{ pageTitle }}
         </v-toolbar-title>
 
-        <template v-if="includeExtension" v-slot:extension>
+        <template
+        v-if="includeExtension"
+        v-slot:extension>
             <slot></slot>
         </template>
     </v-app-bar>

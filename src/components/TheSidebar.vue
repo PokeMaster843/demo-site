@@ -1,8 +1,13 @@
 <script setup>
+// library imports
+import { ref } from "vue";
 import { useDisplay } from "vuetify";
-import { sitePages, navDrawer } from "@/references";
+
+// project imports
+import { sitePages } from "@/references";
 
 const { mdAndUp } = useDisplay();
+const navDrawer = ref(null);
 
 defineProps({
     pages: {
@@ -24,6 +29,7 @@ defineProps({
             <template
             v-for="(page, index) in pages"
             :key="index">
+                <!--render link normally if page has no children-->
                 <v-list-item
                 v-if="!page.hasChildren"
                 :title="page.title"
@@ -36,10 +42,11 @@ defineProps({
                     </template>
                 </v-list-item>
 
+                <!--if page has children, render a VListGroup-->
                 <v-list-group
                 v-else
                 :value="page.title">
-                    <!--parent page acts as dropdown-->
+                    <!--parent page acts as dropdown; no link bound to element-->
                     <template
                     v-slot:activator="{ props }">
                         <v-list-item
@@ -54,7 +61,7 @@ defineProps({
                         </v-list-item>
                     </template>
 
-                    <!--child pages-->
+                    <!--child pages rendered with links-->
                     <v-list-item
                     v-for="(child, subindex) in page.children"
                     :key="subindex"

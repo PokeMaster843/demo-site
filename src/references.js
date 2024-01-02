@@ -1,5 +1,17 @@
+// library imports
 import { ref } from "vue";
 
+/**
+ * Creates a Page object; used in rendering links for each page, and
+ * child pages if applicable.
+ * 
+ * @param {String} title 
+ * @param {String} icon 
+ * @param {String} to 
+ * @param {Boolean} hasChildren 
+ * @param {Array} children 
+ * @returns Page object
+ */
 function createPage(title="", icon="", to="", hasChildren=false, children=[]) {
     return {
         title: title,
@@ -10,6 +22,14 @@ function createPage(title="", icon="", to="", hasChildren=false, children=[]) {
     };
 }
 
+/**
+ * Creates a ChildPage object; used in rendering child links of a parent
+ * page.
+ * 
+ * @param {String} title 
+ * @param {String} to 
+ * @returns ChildPage object
+ */
 function createChildPage(title="", to="") {
     return {
         title: title,
@@ -18,6 +38,7 @@ function createChildPage(title="", to="") {
     };
 }
 
+// individual site Pages
 const   homePage = createPage(          "Home",              "mdi-home",   "home");
 const  aboutPage = createPage(      "About Me",       "mdi-information",  "about");
 const whyVuePage = createPage(   "Why Vue.js?",             "mdi-vuejs", "whyvue");
@@ -27,7 +48,7 @@ const  demosPage = createPage("Demonstrations", "mdi-application-array",  "demos
     createChildPage("Demo 2", "demoB"),
     createChildPage("Demo 3", "demoC")
 ]);
-const currentPage = ref(homePage);
+// array of all site Pages
 const sitePages = ref([
     homePage,
     aboutPage,
@@ -36,6 +57,13 @@ const sitePages = ref([
     demosPage
 ]);
 
+/**
+ * Creates a CarouselItem object; used for rendering VCarouselItem components
+ * and a relevant desription within the "About Me" Page.
+ * @param {String} imgSrc 
+ * @param {String} desc 
+ * @returns CarouselItem object
+ */
 function createCarouselItem(imgSrc, desc) {
     return {
         src: imgSrc,
@@ -44,17 +72,26 @@ function createCarouselItem(imgSrc, desc) {
 }
 
 const placeholderSrc = "https://cdn.vuetifyjs.com/images/parallax/material.jpg";
+// individual "About Me" CarouselItems
 const bsCarousel = createCarouselItem(placeholderSrc, "Beat Saber description");
 const mathCarousel = createCarouselItem(placeholderSrc, "Hobby mathematics description");
 const codeCarousel = createCarouselItem(placeholderSrc, "Hobby coding description");
+// array of all "About Me" CarouselItems
 const aboutMeCarousel = ref([
     bsCarousel,
     mathCarousel,
     codeCarousel
 ]);
 
+// aspect ratio for CarouselItems
 const aspectRatio = 16 / 9;
 
+/**
+ * Returns an approximate height of the VCarousel component in the
+ * "About Me" Page, given the current viewport width.
+ * @param {Number} width 
+ * @returns Approximate height of VCarousel
+ */
 function carouselHeight(width) {
     // if xs or sm screen, only adjust by scrollbar; on larger screens, also adjust by 56px sidebar
     let adjustedWidth = width < 960 ? (width - 10) : (width - 66);
@@ -62,6 +99,14 @@ function carouselHeight(width) {
     return adjustedWidth * occupiedCols / aspectRatio;
 }
 
+/**
+ * Creates an InfoSection object; used for rendering detailed
+ * information sections on individual DemoPages.
+ * 
+ * @param {String} name 
+ * @param {String} title 
+ * @returns InfoSection object
+ */
 function createInfoSection(name, title) {
     return {
         name: name,
@@ -69,6 +114,7 @@ function createInfoSection(name, title) {
     };
 }
 
+// InfoSections for demoA
 const demoA = ref([
     createInfoSection("detailsA", "Details A"),
     createInfoSection("detailsB", "Details B"),
@@ -77,16 +123,12 @@ const demoA = ref([
     createInfoSection("detailsE", "Details E")
 ]);
 
-const clicked = ref(true);
-const navDrawer = ref(null);
-
 export {
     homePage,
     aboutPage,
     whyVuePage,
     resumePage,
     demosPage,
-    currentPage,
     sitePages,
 
     aboutMeCarousel,
@@ -94,7 +136,5 @@ export {
 
     demoA,
 
-    aspectRatio,
-    clicked,
-    navDrawer
+    aspectRatio
 };

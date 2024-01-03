@@ -15,12 +15,47 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
+
+// Vuetify
 import "@mdi/font/css/materialdesignicons.css";
 import "vuetify/styles";
 import vuetify from "@/plugins/vuetify";
+
+// VueRouter
+import { createMemoryHistory, createRouter } from "vue-router";
+
+// Pinia
+import { createPinia } from "pinia";
+
 import { mount } from "cypress/vue";
 import { h } from "vue";
 import { VLayout } from "vuetify/components/VLayout";
+
+const router = createRouter({
+    history: createMemoryHistory(),
+    routes: [
+        {
+            path: "/",
+            name: "home",
+            component: null
+        },
+
+        {
+            path: "/a",
+            name: "a",
+            component: null,
+            children: [
+                {
+                    path: "b",
+                    name: "b",
+                    component: null
+                }
+            ]
+        }
+    ]
+});
+
+const pinia = createPinia();
 
 Cypress.Commands.add('mount', (component, options = {}) => {
     return mount(() => h(VLayout, {}, [h(component, options.props || {}, options.slots || {})]), {
@@ -28,7 +63,11 @@ Cypress.Commands.add('mount', (component, options = {}) => {
             stubs: {
                 transition: false
             },
-            plugins: [vuetify]
+            plugins: [
+                vuetify,
+                router,
+                pinia
+            ]
         }
     });
 });

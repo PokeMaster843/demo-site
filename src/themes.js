@@ -40,26 +40,22 @@ const colorThemes = {
     "default": {
         name: "default",
         light: "#000000",
-        dark: "#ffffff",
-        selected: true
+        dark: "#ffffff"
     },
     "red": {
         name: "red",
         light: colors.red.darken2,
-        dark: colors.red.lighten2,
-        selected: false
+        dark: colors.red.lighten2
     },
     "green": {
         name: "green",
         light: colors.green.darken2,
-        dark: colors.green.lighten2,
-        selected: false
+        dark: colors.green.lighten2
     },
     "blue": {
         name: "blue",
         light: colors.blue.darken2,
-        dark: colors.blue.lighten2,
-        selected: false
+        dark: colors.blue.lighten2
     },
 };
 

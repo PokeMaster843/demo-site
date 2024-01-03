@@ -124,6 +124,8 @@ const demoA = ref([
 ]);
 
 export {
+    createPage,
+    createChildPage,
     homePage,
     aboutPage,
     whyVuePage,
@@ -131,9 +133,11 @@ export {
     demosPage,
     sitePages,
 
+    createCarouselItem,
     aboutMeCarousel,
     carouselHeight,
 
+    createInfoSection,
     demoA,
 
     aspectRatio

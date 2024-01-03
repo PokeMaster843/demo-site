@@ -32,8 +32,7 @@ defineProps({
 
     <!--main container element-->
     <v-main
-    class="page-container"
-    @click="store.closeList()">
+    class="page-container">
         <!--VContainer allows pages to use VRow and VCol for layouts-->
         <v-container
         class="page-content"

@@ -4,9 +4,10 @@ import { useTheme } from "vuetify";
 
 // project imports
 import { colorThemes } from "@/themes";
-import { store } from "@/reactives";
+import { useThemeStore } from "@/stores/theme";
 
 const theme = useTheme();
+const store = useThemeStore();
 
 /**
  * Switches theme accent color, preserving light/dark state.
@@ -17,11 +18,12 @@ function switchColor(newColor) {
     store.closeList();
 
     // deselect current color, and then select new color
-    colorThemes[currentColor()].selected = false;
+    colorThemes[store.color].selected = false;
     colorThemes[newColor].selected = true;
+    store.setColor(newColor);
 
     // change site theme
-    theme.global.name.value = newColor + (theme.global.current.value.dark ? "Dark" : "Light");
+    theme.global.name.value = store.currentTheme;
 
 }
 
@@ -29,18 +31,16 @@ function switchColor(newColor) {
  * Toggles between light/dark themes, preserving selected accent color.
  */
 function toggleDark() {
-    theme.global.name.value = theme.global.current.value.dark ? theme.global.name.value.replace(/Dark$/, "Light") : theme.global.name.value.replace(/Light$/, "Dark");
+    store.toggleDark();
+    theme.global.name.value = store.currentTheme;
 }
 
-/**
- * Gets the currently selected accent color of the site.
- * @returns current accent color
- */
-function currentColor() {
-    return theme.global.name.value.replace(/(Dark|Light)$/, "");
-}
+// when any other part of the webpage is clicked, close theme list
+document.body.addEventListener("click", () => {
+    store.closeList();
+});
 
-// event handler for expanding/contracting theme accent color list
+// event handler for expanding/contracting theme list
 function expandContract(event) {
     
     // prevents click event from propagating to parent elements
@@ -63,9 +63,9 @@ function expandContract(event) {
             <div
             v-for="(color, index) in colorThemes"
             :key="index"
-            :class="{ expanded: store.themeListExpanded, contracted: !store.themeListExpanded }">
+            :class="{ expanded: store.listExpanded, contracted: !store.listExpanded }">
                 <v-btn
-                :class="{ selected: color.selected && store.themeListExpanded }"
+                :class="{ selected: store.color == color.name && store.listExpanded }"
                 class="ma-2"
                 elevation="1"
                 density="comfortable"

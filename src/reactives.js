@@ -10,7 +10,4 @@ export const store = reactive({
         this.navDrawer = !this.navDrawer;
     },
 
-    // VModel bound to VTabs component of site appbar
-    tabs: null,
-
 });

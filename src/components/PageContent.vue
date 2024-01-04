@@ -4,7 +4,9 @@
 // project imports
 import AppBar from "@/components/AppBar.vue";
 import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
-import { store } from "@/reactives";
+import { useTabStore } from "@/stores/tab";
+
+const store = useTabStore();
 
 defineProps({
     pageTitle: {

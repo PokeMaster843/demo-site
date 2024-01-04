@@ -1,14 +1,14 @@
 <script setup>
 // library imports
-import { ref } from "vue";
 import { useDisplay } from "vuetify";
 
 // project imports
 import PageContent from "@/components/PageContent.vue";
 import photoSelf from "@/assets/photo-self.jpg";
-import { aboutPage, aboutMeCarousel, carouselHeight, aspectRatio } from "@/references";
+import { useCarouselStore } from "@/stores/carousel";
+import { aboutPage } from "@/references";
 
-const carousel = ref(null);
+const store = useCarouselStore();
 const { xs, width } = useDisplay();
 </script>
 
@@ -25,7 +25,7 @@ const { xs, width } = useDisplay();
                 <v-img
                 :src="photoSelf"
                 style="border-radius: 50%; margin: auto;"
-                :width="carouselHeight(width)-56">
+                :width="store.carouselHeight(width)-56">
                 </v-img>
 
                 <div
@@ -58,21 +58,21 @@ const { xs, width } = useDisplay();
             lg="3">
                 <v-carousel
                 class="h-auto"
-                v-model="carousel"
+                v-model="store.carousel"
                 :show-arrows="false"
                 hide-delimiters>
                     <v-carousel-item
-                    v-for="(item, index) in aboutMeCarousel"
+                    v-for="(item, index) in store.items"
                     :key="item"
                     :value="index">
                         <div
                         class="carousel-description-container custom-scrollbar"
-                        :style="'max-height:' + carouselHeight(width) + 'px'">
+                        :style="'max-height:' + store.carouselHeight(width) + 'px'">
                             <div
                             class="text-body-2"
-                            v-if="carousel !== null">
+                            v-if="store.carousel !== null">
                                 <template v-for="i in 15" :key="i">
-                                    {{ aboutMeCarousel[carousel].desc + ' ' }}
+                                    {{ store.items[store.carousel].desc + ' ' }}
                                 </template>
                             </div>
                         </div>
@@ -88,16 +88,16 @@ const { xs, width } = useDisplay();
             lg="5">
                 <v-carousel
                 class="h-auto"
-                v-model="carousel"
+                v-model="store.carousel"
                 show-arrows="hover"
                 hide-delimiter-background>
                     <v-carousel-item
-                    v-for="(item, index) in aboutMeCarousel"
+                    v-for="(item, index) in store.items"
                     :key="item"
                     :value="index"
                     :src="item.src"
                     width="100%"
-                    :aspect-ratio="aspectRatio">
+                    :aspect-ratio="store.aspectRatio">
                     </v-carousel-item>
                 </v-carousel>
             </v-col>

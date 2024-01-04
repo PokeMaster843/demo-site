@@ -1,18 +1,13 @@
 <script setup>
 // library imports
 import { useTheme } from "vuetify";
-import { onMounted } from "vue";
 
 // project imports
-import { colorThemes } from "@/themes";
+import { accentColors } from "@/themes";
 import { useThemeStore } from "@/stores/theme";
 
 const theme = useTheme();
 const store = useThemeStore();
-
-onMounted(() => {
-    theme.global.name.value = store.currentTheme;
-});
 
 /**
  * Switches theme accent color, preserving light/dark state.
@@ -21,14 +16,7 @@ onMounted(() => {
 function switchColor(newColor) {
 
     store.closeList();
-
-    // deselect current color, and then select new color
-    colorThemes[store.color].selected = false;
-    colorThemes[newColor].selected = true;
     store.setColor(newColor);
-
-    // change site theme
-    theme.global.name.value = store.currentTheme;
 
 }
 
@@ -37,7 +25,7 @@ function switchColor(newColor) {
  */
 function toggleDark() {
     store.toggleDark();
-    theme.global.name.value = store.currentTheme;
+    theme.global.name.value = store.dark ? "defaultDark" : "defaultLight";
 }
 
 // when any other part of the webpage is clicked, close theme list
@@ -66,18 +54,18 @@ function expandContract(event) {
         <div
         class="d-flex flex-column">
             <div
-            v-for="(color, index) in colorThemes"
+            v-for="(color, index) in accentColors"
             :key="index"
             :class="{ expanded: store.listExpanded, contracted: !store.listExpanded }">
                 <v-btn
-                :class="{ selected: store.color == color.name && store.listExpanded }"
+                :class="{ selected: store.color == color && store.listExpanded }"
                 class="ma-2"
                 elevation="1"
                 density="comfortable"
                 icon=""
                 size="56"
-                :color="theme.global.current.value.dark ? color.dark : color.light"
-                @click="switchColor(color.name)">
+                :color="color"
+                @click="switchColor(color)">
                 </v-btn>
             </div>
         </div>
@@ -95,7 +83,7 @@ function expandContract(event) {
         @click="expandContract"
         title="Select accent color">
             <template v-slot:default>
-                <v-icon color="accent-color"></v-icon>
+                <v-icon :color="store.color"></v-icon>
             </template>
         </v-btn>
 
@@ -108,7 +96,7 @@ function expandContract(event) {
         @click="toggleDark()"
         title="Toggle dark mode">
             <template v-slot:default>
-                <v-icon color="accent-color"></v-icon>
+                <v-icon :color="store.color"></v-icon>
             </template>
         </v-btn>
     </div>

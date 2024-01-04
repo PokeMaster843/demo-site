@@ -1,6 +1,6 @@
 import colors from "vuetify/lib/util/colors";
 
-function mixLight(accentColor="#000000") {
+function mixLight() {
     return {
         dark: false,
         colors: {
@@ -9,64 +9,48 @@ function mixLight(accentColor="#000000") {
             surface: "#ffffff",
             "surface-variant": "#d1d1d1",
             invert: "#121212",
-            "accent-color": accentColor,
-            "highlight": "#555555"
+
+            // accent colors
+            default: "#000000",
+            amber: colors.amber.darken3,
+            teal: colors.teal.darken3,
+            indigo: colors.indigo.darken3,
+
+            highlight: "#555555"
         }
     };
 }
 
-function mixDark(accentColor="#ffffff") {
+function mixDark() {
     return {
         dark: true,
         colors: {
             "surface-variant": "#2e2e2e",
             invert: "#ededed",
-            "accent-color": accentColor,
-            "highlight": "#aaaaaa"
+
+            // accent colors
+            default: "#ffffff",
+            amber: colors.amber.lighten2,
+            teal: colors.teal.lighten2,
+            indigo: colors.indigo.lighten2,
+
+            highlight: "#aaaaaa"
         }
     };
 }
 
 const defaultLight = mixLight();
-const redLight = mixLight(colors.red.darken2);
-const blueLight = mixLight(colors.blue.darken2);
-const greenLight = mixLight(colors.green.darken2);
 const defaultDark = mixDark();
-const redDark = mixDark(colors.red.lighten2);
-const blueDark = mixDark(colors.blue.lighten2);
-const greenDark = mixDark(colors.green.lighten2);
 
-const colorThemes = {
-    "default": {
-        name: "default",
-        light: "#000000",
-        dark: "#ffffff"
-    },
-    "red": {
-        name: "red",
-        light: colors.red.darken2,
-        dark: colors.red.lighten2
-    },
-    "green": {
-        name: "green",
-        light: colors.green.darken2,
-        dark: colors.green.lighten2
-    },
-    "blue": {
-        name: "blue",
-        light: colors.blue.darken2,
-        dark: colors.blue.lighten2
-    },
-};
+const accentColors = [
+    "default",
+    "amber",
+    "teal",
+    "indigo"
+];
 
 export {
-    colorThemes,
     defaultLight,
-    redLight,
-    greenLight,
-    blueLight,
     defaultDark,
-    redDark,
-    greenDark,
-    blueDark
+    accentColors
 };

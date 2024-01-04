@@ -6,12 +6,10 @@ export const useThemeStore = defineStore("theme", {
     state: () => ({
         listExpanded: false,
         color: "default",
-        dark: usePreferredColorScheme().value === "light" ? false : true // uses dark if no preference
+        dark: usePreferredColorScheme().light ? false : true
     }),
 
-    getters: {
-        currentTheme: (state) => state.color + (state.dark ? "Dark" : "Light")
-    },
+    getters: {},
 
     actions: {
         toggleList() {

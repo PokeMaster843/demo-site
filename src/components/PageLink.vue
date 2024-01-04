@@ -1,4 +1,8 @@
 <script setup>
+import { useThemeStore } from '@/stores/theme';
+
+const store = useThemeStore();
+
 defineProps({
     title: {
         type: String,
@@ -22,7 +26,7 @@ defineProps({
         <template v-slot:prepend>
             <v-icon
             :icon="icon"
-            color="accent-color">
+            :color="store.color">
             </v-icon>
         </template>
     </v-list-item>
@@ -34,7 +38,7 @@ defineProps({
         <template v-slot:prepend>
             <v-icon
             :icon="icon"
-            color="accent-color">
+            :color="store.color">
             </v-icon>
         </template>
     </v-list-item>

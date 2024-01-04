@@ -1,11 +1,12 @@
 // library imports
 import { defineStore } from "pinia";
+import { usePreferredColorScheme } from "@vueuse/core";
 
 export const useThemeStore = defineStore("theme", {
     state: () => ({
         listExpanded: false,
         color: "default",
-        dark: true
+        dark: usePreferredColorScheme().value === "light" ? false : true // uses dark if no preference
     }),
 
     getters: {

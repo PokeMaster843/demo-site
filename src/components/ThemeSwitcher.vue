@@ -1,6 +1,7 @@
 <script setup>
 // library imports
 import { useTheme } from "vuetify";
+import { onMounted } from "vue";
 
 // project imports
 import { colorThemes } from "@/themes";
@@ -8,6 +9,10 @@ import { useThemeStore } from "@/stores/theme";
 
 const theme = useTheme();
 const store = useThemeStore();
+
+onMounted(() => {
+    theme.global.name.value = store.currentTheme;
+});
 
 /**
  * Switches theme accent color, preserving light/dark state.

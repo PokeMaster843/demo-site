@@ -58,48 +58,6 @@ const sitePages = ref([
 ]);
 
 /**
- * Creates a CarouselItem object; used for rendering VCarouselItem components
- * and a relevant desription within the "About Me" Page.
- * @param {String} imgSrc 
- * @param {String} desc 
- * @returns CarouselItem object
- */
-function createCarouselItem(imgSrc, desc) {
-    return {
-        src: imgSrc,
-        desc: desc
-    }
-}
-
-const placeholderSrc = "https://cdn.vuetifyjs.com/images/parallax/material.jpg";
-// individual "About Me" CarouselItems
-const bsCarousel = createCarouselItem(placeholderSrc, "Beat Saber description");
-const mathCarousel = createCarouselItem(placeholderSrc, "Hobby mathematics description");
-const codeCarousel = createCarouselItem(placeholderSrc, "Hobby coding description");
-// array of all "About Me" CarouselItems
-const aboutMeCarousel = ref([
-    bsCarousel,
-    mathCarousel,
-    codeCarousel
-]);
-
-// aspect ratio for CarouselItems
-const aspectRatio = 16 / 9;
-
-/**
- * Returns an approximate height of the VCarousel component in the
- * "About Me" Page, given the current viewport width.
- * @param {Number} width 
- * @returns Approximate height of VCarousel
- */
-function carouselHeight(width) {
-    // if xs or sm screen, only adjust by scrollbar; on larger screens, also adjust by 56px sidebar
-    let adjustedWidth = width < 960 ? (width - 10) : (width - 66);
-    let occupiedCols = width < 600 ? 1 : (width < 960 ? (7 / 12) : (5 / 12));
-    return adjustedWidth * occupiedCols / aspectRatio;
-}
-
-/**
  * Creates an InfoSection object; used for rendering detailed
  * information sections on individual DemoPages.
  * 
@@ -133,12 +91,6 @@ export {
     demosPage,
     sitePages,
 
-    createCarouselItem,
-    aboutMeCarousel,
-    carouselHeight,
-
     createInfoSection,
-    demoA,
-
-    aspectRatio
+    demoA
 };

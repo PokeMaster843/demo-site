@@ -1,26 +1,28 @@
 <script setup>
 // library imports
+import { ref } from "vue";
 import { useTheme, useDisplay } from "vuetify";
 
 // project imports
 import { accentColors } from "@/themes";
 import { useThemeStore } from "@/stores/theme";
 import ColorButton from "@/components/ColorButton.vue";
-import IconList from "./IconList.vue";
+import IconList from "@/components/IconList.vue";
+import ModalPopup from "@/components/ModalPopup.vue";
 
 const theme = useTheme();
 const { xs } = useDisplay();
 const store = useThemeStore();
+const popup = ref(false);
+const customColor = ref(null);
 
 /**
  * Switches theme accent color, preserving light/dark state.
  * @param {String} newColor 
  */
 function switchColor(newColor) {
-
     store.closeList();
     store.setColor(newColor);
-
 }
 
 /**
@@ -29,6 +31,11 @@ function switchColor(newColor) {
  function toggleDark() {
     store.toggleDark();
     theme.global.name.value = store.dark ? "defaultDark" : "defaultLight";
+}
+
+function openColorSelectPopup(e) {
+    e.stopPropagation();
+    popup.value = true;
 }
 
 // when any other part of the webpage is clicked, close theme list
@@ -54,14 +61,30 @@ document.body.addEventListener("click", () => {
                 </color-button>
             </template>
             
-            <!--TODO: implement custom accent color option here-->
             <template
             v-if="!xs"
             #1>
                 <color-button
                 :selected="store.custom && store.listExpanded"
-                :class="{ expanded: store.listExpanded, contracted: !store.listExpanded }">
+                :class="{ expanded: store.listExpanded, contracted: !store.listExpanded }"
+                icon="mdi-select-color"
+                :icon-color="store.currentCustomValue"
+                title="Select custom accent color"
+                @click="openColorSelectPopup">
                 </color-button>
+
+                <modal-popup
+                v-model="popup"
+                close-btn-text="Cancel"
+                action-btn-text="Use Color"
+                @action="switchColor(customColor)"
+                rounded>
+                    <v-color-picker
+                    :modes="['hex']"
+                    v-model:model-value="customColor"
+                    elevation="0">
+                    </v-color-picker>
+                </modal-popup>
             </template>
 
             <template

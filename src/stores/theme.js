@@ -6,7 +6,9 @@ export const useThemeStore = defineStore("theme", {
     state: () => ({
         listExpanded: false,
         color: "default",
-        dark: usePreferredColorScheme().light ? false : true
+        custom: false,
+        dark: usePreferredColorScheme().light ? false : true,
+        popup: true
     }),
 
     getters: {},
@@ -25,6 +27,14 @@ export const useThemeStore = defineStore("theme", {
 
         toggleDark() {
             this.dark = !this.dark;
-        }
+        },
+
+        openPopup() {
+            this.popup = true;
+        },
+        closePopup() {
+            this.popup = false;
+            console.log("clicked div");
+        },
     }
 });

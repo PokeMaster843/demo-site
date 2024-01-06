@@ -1,12 +1,15 @@
 <script setup>
 // library imports
-import { useTheme } from "vuetify";
+import { useTheme, useDisplay } from "vuetify";
 
 // project imports
 import { accentColors } from "@/themes";
 import { useThemeStore } from "@/stores/theme";
+import ColorButton from "@/components/ColorButton.vue";
+import IconList from "./IconList.vue";
 
 const theme = useTheme();
+const { xs } = useDisplay();
 const store = useThemeStore();
 
 /**
@@ -23,7 +26,7 @@ function switchColor(newColor) {
 /**
  * Toggles between light/dark themes, preserving selected accent color.
  */
-function toggleDark() {
+ function toggleDark() {
     store.toggleDark();
     theme.global.name.value = store.dark ? "defaultDark" : "defaultLight";
 }
@@ -32,98 +35,83 @@ function toggleDark() {
 document.body.addEventListener("click", () => {
     store.closeList();
 });
-
-// event handler for expanding/contracting theme list
-function expandContract(event) {
-    
-    // prevents click event from propagating to parent elements
-    event.stopPropagation();
-
-    // toggles expanded state
-    store.toggleList();
-
-}
 </script>
 
 <template>
     <div
     class="d-flex flex-column"
     style="position: fixed; bottom: 2em; right: 2em;">
-        
-        <!--theme accent colors-->
-        <div
-        class="d-flex flex-column">
-            <div
+        <icon-list
+        :item-count="5"
+        v-model="store.listExpanded">
+            <template #activator>
+                <color-button
+                id="theme-list-toggle"
+                icon="mdi-eyedropper"
+                color="surface"
+                title="Select accent color"
+                activator>
+                </color-button>
+            </template>
+            
+            <!--TODO: implement custom accent color option here-->
+            <template
+            v-if="!xs"
+            #1>
+                <color-button
+                :selected="store.custom && store.listExpanded"
+                :class="{ expanded: store.listExpanded, contracted: !store.listExpanded }">
+                </color-button>
+            </template>
+
+            <template
             v-for="(color, index) in accentColors"
             :key="index"
-            :class="{ expanded: store.listExpanded, contracted: !store.listExpanded }">
-                <v-btn
-                :class="{ selected: store.color == color && store.listExpanded }"
-                class="ma-2"
-                elevation="1"
-                density="comfortable"
-                icon=""
-                size="56"
+            #[index+2]>
+                <color-button
+                :selected="store.color == color && store.listExpanded"
+                :class="{ expanded: store.listExpanded, contracted: !store.listExpanded }"
                 :color="color"
                 @click="switchColor(color)">
-                </v-btn>
-            </div>
-        </div>
-
-        <!--theme accent color list toggle-->
-        <v-btn
-        id="theme-list-toggle"
-        class="ma-2"
-        elevation="2"
-        density="comfortable"
-        icon="mdi-select-color"
-        size="56"
-        color="surface"
-        style="box-shadow: 0px 0px 2px 2px rgb(var(--v-theme-surface)) !important;"
-        @click="expandContract"
-        title="Select accent color">
-            <template v-slot:default>
-                <v-icon :color="store.color"></v-icon>
+                </color-button>
             </template>
-        </v-btn>
+        </icon-list>
 
         <!--theme light/dark toggle-->
-        <v-btn class="ma-2"
-        elevation="1"
-        density="comfortable"
+        <color-button
         icon="mdi-theme-light-dark"
-        size="56"
-        @click="toggleDark()"
-        title="Toggle dark mode">
-            <template v-slot:default>
-                <v-icon :color="store.color"></v-icon>
-            </template>
-        </v-btn>
+        title="Toggle dark mode"
+        @click="toggleDark()">
+        </color-button>
     </div>
 </template>
 
-<style scoped lang="scss">
-$numColors: 4;
+<style scoped>
+.modal-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    background-color: rgba(0,0,0,0.5);
 
-.contracted {
-    transition-delay: 0.1s;
-    transition: translate 0.2s;
-}
-
-.expanded {
-    translate: 0px;
-    transition-delay: 0.1s;
-    transition: translate;
-}
-
-@for $i from 1 through $numColors {
-    .contracted:nth-child(#{$i}) {
-        translate: 0px calc((57px + 1em) * (($numColors + 1) - $i));
-    }
-    .expanded:nth-child(#{$i}) {
-        transition-duration: (($numColors + 1) - $i) * 0.067s;
+    #modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
+
+.show {
+    visibility: visible;
+}
+.hidden {
+    visibility: hidden;
+}
+
+
 
 .selected {
     box-shadow: 0px 0px 8px 4px rgb(var(--v-theme-highlight)) !important;

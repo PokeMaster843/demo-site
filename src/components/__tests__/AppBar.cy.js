@@ -9,29 +9,32 @@ describe("<AppBar />", () => {
             }
         });
 
-        cy.get("[data-cy=page-title]").should("have.text", "Test Page Title");
+        cy.getById("page-title")
+        .should("have.text", "Test Page Title");
     });
 
     it("button for controlling sidebar does not appear on larger screens", () => {
-        cy.viewport("macbook-13");
+        cy.desktop();
         cy.mount(AppBar, {
             props: {
                 pageTitle: "Test Page Title"
             }
         });
 
-        cy.get("[data-cy=sm-menu]").should("not.exist");
+        cy.getById("sm-menu")
+        .should("not.exist");
     });
 
     it("button for controlling sidebar shows up on smaller screens", () => {
-        cy.viewport("iphone-xr");
+        cy.mobile();
         cy.mount(AppBar, {
             props: {
                 pageTitle: "Test Page Title"
             }
         });
 
-        cy.get("[data-cy=sm-menu]").should("exist");
+        cy.getById("sm-menu")
+        .should("exist");
     });
 
     it("app bar extension renders when prop is set", () => {
@@ -42,6 +45,7 @@ describe("<AppBar />", () => {
             }
         });
 
-        cy.get("div .v-toolbar__extension").should("exist");
+        cy.get("div .v-toolbar__extension")
+        .should("exist");
     });
 });

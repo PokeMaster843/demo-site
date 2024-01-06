@@ -37,18 +37,18 @@ const router = createRouter({
         {
             path: "/",
             name: "home",
-            component: null
+            component: { template: "" }
         },
 
         {
             path: "/a",
             name: "a",
-            component: null,
+            component: { template: "" },
             children: [
                 {
                     path: "b",
                     name: "b",
-                    component: null
+                    component: { template: "" }
                 }
             ]
         }
@@ -57,7 +57,7 @@ const router = createRouter({
 
 const pinia = createPinia();
 
-Cypress.Commands.add('mount', (component, options = {}) => {
+Cypress.Commands.add("mount", (component, options = {}) => {
     return mount(() => h(VLayout, {}, [h(component, options.props || {}, options.slots || {})]), {
         global: {
             stubs: {
@@ -70,6 +70,23 @@ Cypress.Commands.add('mount', (component, options = {}) => {
             ]
         }
     });
+});
+
+Cypress.Commands.add("desktop", () => cy.viewport("macbook-13"));
+Cypress.Commands.add("mobile", () => cy.viewport("iphone-xr"));
+Cypress.Commands.add("getById", (id) => cy.get(`[data-cy=${id}]`));
+Cypress.Commands.add("getByIdAndAttributes", (id, attributes) => {
+    let selector = `[data-cy=${id}]`;
+    if(attributes) {
+        Object.keys(attributes).forEach((key) => {
+            selector += `[${key}=${attributes[key]}]`;
+        });
+    }
+    return cy.get(selector);
+});
+
+Cypress.Commands.add("hover", { prevSubject: true }, (subject) => {
+    cy.wrap(subject).trigger("mouseenter");
 });
 // Example use:
 // cy.mount(MyComponent)

@@ -3,15 +3,12 @@ import { useThemeStore } from "@/stores/theme";
 
 const store = useThemeStore();
 
-function toCSS(col) {
-    if(/^#(\d|[a-f|A-F]){6}$/.test(col)) {
-        return col;
-    }
-    return "rgb(var(--v-theme-" + col + "))";
-}
-
 defineProps({
     icon: {
+        type: String,
+        default: ""
+    },
+    iconColor: {
         type: String,
         default: ""
     },
@@ -49,14 +46,14 @@ defineProps({
     :color="color"
     :title="title">
         <template v-slot:default>
-            <v-icon :color="store.color"></v-icon>
+            <v-icon :color="iconColor === '' ? store.color : iconColor"></v-icon>
         </template>
     </v-btn>
 </template>
 
 <style scoped>
 .activator {
-    --bg-color: v-bind(toCSS(color));
+    --bg-color: v-bind(store.cssColor(color));
     box-shadow: 0px 0px 2px 2px var(--bg-color) !important;
 }
 

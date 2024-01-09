@@ -5,7 +5,7 @@ import { useThemeStore } from "@/stores/theme";
 const store = useThemeStore();
 
 // eslint-disable-next-line no-undef
-const show = defineModel();
+const show = defineModel("show");
 
 defineProps({
     width: {
@@ -35,22 +35,14 @@ defineProps({
         default: "Close"
     },
 
-    actionBtnText: {
+    submitBtnText: {
         type: String,
         default: "Ok"
-    },
-    actionBtnIcon: {
-        type: String,
-        default: ""
-    },
-    actionBtnIconPosition: {
-        type: String,
-        default: "prepend"
     },
 
     btnColor: {
         type: String,
-        default: "grey-lighten-5"
+        default: "on-surface"
     },
     btnDensity: {
         type: String,
@@ -73,31 +65,27 @@ defineProps({
         default: false
     },
 });
-const emit = defineEmits(['update:show', 'close', 'action']);
-
-function closeModal() {
-    emit('close');
-    show.value = false;
-}
-
-function performAction() {
-    emit('action');
-    show.value = false;
-}
+defineEmits(['close', 'submit']);
 </script>
 
 <template>
+    <div
+    @click.stop>
+        <slot
+        name="activator"
+        :props="{ onClick: () => { show = !show; } }"></slot>
+    </div>
+
     <teleport to="#app">
         <div
         class="modal-mask"
         :class="{show: show, hidden: !show}"
-        @click="show = !show"
-        @click.stop="$emit('update:show', show)">
+        @click="show = !show">
             <v-container
             class="popup"
             :class="{'rounded-xl': rounded}"
-            @click="(e) => { e.stopPropagation(); }"
             :style="{'background-color': store.cssColor(color)}"
+            @click.stop
             fluid>
                 <v-row>
                     <v-col>
@@ -114,7 +102,7 @@ function performAction() {
                         :rounded="btnRounded"
                         :ripple="btnRipple"
                         :variant="btnVariant"
-                        @click="closeModal()">
+                        @click="$emit('close'); show = !show;">
                             {{ closeBtnText }}
                         </v-btn>
                     </v-col>
@@ -129,8 +117,8 @@ function performAction() {
                         :rounded="btnRounded"
                         :ripple="btnRipple"
                         :variant="btnVariant"
-                        @click="performAction()">
-                            {{ actionBtnText }}
+                        @click="$emit('submit'); show = !show;">
+                            {{ submitBtnText }}
                         </v-btn>
                     </v-col>
                 </v-row>

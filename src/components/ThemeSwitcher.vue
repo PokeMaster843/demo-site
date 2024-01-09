@@ -6,7 +6,7 @@ import { useTheme, useDisplay } from "vuetify";
 // project imports
 import { accentColors } from "@/themes";
 import { useThemeStore } from "@/stores/theme";
-import ColorButton from "@/components/ColorButton.vue";
+import IconButton from "@/components/IconButton.vue";
 import IconList from "@/components/IconList.vue";
 import ModalPopup from "@/components/ModalPopup.vue";
 
@@ -32,16 +32,6 @@ function switchColor(newColor) {
     store.toggleDark();
     theme.global.name.value = store.dark ? "defaultDark" : "defaultLight";
 }
-
-function openColorSelectPopup(e) {
-    e.stopPropagation();
-    popup.value = true;
-}
-
-// when any other part of the webpage is clicked, close theme list
-document.body.addEventListener("click", () => {
-    store.closeList();
-});
 </script>
 
 <template>
@@ -49,36 +39,38 @@ document.body.addEventListener("click", () => {
     class="d-flex flex-column"
     style="position: fixed; bottom: 2em; right: 2em;">
         <icon-list
-        :item-count="5"
-        v-model="store.listExpanded">
-            <template #activator>
-                <color-button
-                id="theme-list-toggle"
+        v-model:expanded="store.listExpanded"
+        v-model:selected="store.color">
+            <template #activator="{ props }">
+                <icon-button
+                v-bind="props"
                 icon="mdi-eyedropper"
                 color="surface"
+                :icon-color="store.color"
                 title="Select accent color"
                 activator>
-                </color-button>
+                </icon-button>
             </template>
-            
-            <template
-            v-if="!xs"
-            #1>
-                <color-button
-                :selected="store.custom && store.listExpanded"
-                :class="{ expanded: store.listExpanded, contracted: !store.listExpanded }"
-                icon="mdi-select-color"
-                :icon-color="store.currentCustomValue"
-                title="Select custom accent color"
-                @click="openColorSelectPopup">
-                </color-button>
 
+            <template
+            v-if="!xs">
                 <modal-popup
                 v-model="popup"
                 close-btn-text="Cancel"
-                action-btn-text="Use Color"
-                @action="switchColor(customColor)"
+                submit-btn-text="Use Color"
+                @submit="switchColor(customColor)"
                 rounded>
+                    <template v-slot:activator="{ props }">
+                        <icon-button
+                        v-bind="props"
+                        icon="mdi-select-color"
+                        :icon-color="store.currentCustomValue"
+                        :value="store.currentCustomValue"
+                        title="Select custom accent color"
+                        activator>
+                        </icon-button>
+                    </template>
+
                     <v-color-picker
                     :modes="['hex']"
                     v-model:model-value="customColor"
@@ -86,57 +78,25 @@ document.body.addEventListener("click", () => {
                     </v-color-picker>
                 </modal-popup>
             </template>
-
-            <template
+            
+            <icon-button
             v-for="(color, index) in accentColors"
             :key="index"
-            #[index+2]>
-                <color-button
-                :selected="store.color == color && store.listExpanded"
-                :class="{ expanded: store.listExpanded, contracted: !store.listExpanded }"
-                :color="color"
-                @click="switchColor(color)">
-                </color-button>
-            </template>
+            :color="color"
+            :value="color">
+            </icon-button>
         </icon-list>
 
         <!--theme light/dark toggle-->
-        <color-button
+        <icon-button
         icon="mdi-theme-light-dark"
         title="Toggle dark mode"
-        @click="toggleDark()">
-        </color-button>
+        @click="toggleDark()"
+        :icon-color="store.color"
+        activator>
+        </icon-button>
     </div>
 </template>
 
 <style scoped>
-.modal-mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 10000;
-    background-color: rgba(0,0,0,0.5);
-
-    #modal {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
-.show {
-    visibility: visible;
-}
-.hidden {
-    visibility: hidden;
-}
-
-
-
-.selected {
-    box-shadow: 0px 0px 8px 4px rgb(var(--v-theme-highlight)) !important;
-}
 </style>

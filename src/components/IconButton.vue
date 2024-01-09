@@ -1,7 +1,8 @@
 <script setup>
-import { useThemeStore } from "@/stores/theme";
+// library imports
+import { inject } from "vue";
 
-const store = useThemeStore();
+const selected = inject("selected");
 
 defineProps({
     icon: {
@@ -20,44 +21,34 @@ defineProps({
         type: String,
         default: "surface"
     },
-    title: {
+    value: {
         type: String,
-        default: ""
-    },
-    selected: {
-        type: Boolean,
-        default: false
+        default: null
     },
     activator: {
         type: Boolean,
         default: false
     }
-})
+});
 </script>
 
 <template>
     <v-btn
-    :class="{selected: selected, activator: activator}"
+    :class="{selected: selected === value && value !== null}"
     class="ma-2"
-    :elevation="activator ? '2' : '1'"
-    density="comfortable"
     :icon="icon"
     :size="size"
     :color="color"
-    :title="title">
+    :value="value"
+    @click="if(!activator) { selected = value; }">
         <template v-slot:default>
-            <v-icon :color="iconColor === '' ? store.color : iconColor"></v-icon>
+            <v-icon :color="iconColor"></v-icon>
         </template>
     </v-btn>
 </template>
 
 <style scoped>
-.activator {
-    --bg-color: v-bind(store.cssColor(color));
-    box-shadow: 0px 0px 2px 2px var(--bg-color) !important;
-}
-
 .selected {
-    box-shadow: 0px 0px 8px 4px rgb(var(--v-theme-highlight)) !important;
+    box-shadow: 0px 0px 4px 4px rgb(var(--v-theme-highlight)) !important;
 }
 </style>

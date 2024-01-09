@@ -1,44 +1,38 @@
+<!-- eslint-disable no-undef -->
 <script setup>
-// eslint-disable-next-line no-undef
-const expanded = defineModel();
+// library imports
+import { provide } from "vue";
 
-defineProps({
-    itemCount: {
-        type: Number,
-        required: true
-    }
+const expanded = defineModel("expanded");
+const selected = defineModel("selected");
+
+provide("selected", selected);
+
+document.body.addEventListener("click", () => {
+    expanded.value = false;
 });
-defineEmits(["update:expanded"]);
 </script>
 
 <template>
-    <div class="d-flex flex-column">
-        <div
-        class="list-item"
-        :class="{expanded: expanded, contracted: !expanded}"
-        v-for="i in itemCount"
-        :key="i"
-        :style="'--n:' + i">
-            <slot :name="i"></slot>
-        </div>
-    </div>
+    <v-expand-transition>
+        <v-card
+        color="#00000000"
+        v-show="expanded"
+        flat>
+            <div
+            class="d-flex flex-column">
+                <slot></slot>
+            </div>
+        </v-card>
+    </v-expand-transition>
 
     <div
-    @click="expanded = !expanded"
-    @click.stop="$emit('update:expanded', expanded)">
-        <slot name="activator"></slot>
+    @click.stop>
+        <slot
+        name="activator"
+        :props="{ onClick: () => { expanded = !expanded; } }"></slot>
     </div>
 </template>
 
 <style scoped>
-
-.expanded:nth-child(n) {
-    translate: 0;
-    transition-duration: calc(0.067s * ((v-bind(itemCount) + 1) - var(--n)));
-}
-
-.contracted:nth-child(n) {
-    translate: 0px calc((100%) * ((v-bind(itemCount) + 1) - var(--n)));
-    transition-duration: 0.2s;
-}
 </style>

@@ -6,14 +6,16 @@ import { useDisplay } from "vuetify";
 import PageContent from "@/components/PageContent.vue";
 import photoSelf from "@/assets/photo-self.jpg";
 import { useCarouselStore } from "@/stores/carousel";
-import { aboutPage } from "@/references";
+import { aboutPage as page } from "@/references";
 
 const store = useCarouselStore();
 const { xs, width } = useDisplay();
 </script>
 
 <template>
-    <page-content :page-title="aboutPage.title">
+    <page-content
+    :page-title="page.title"
+    :finished="page.finished">
         <!--TODO: make banner with image and text saying "Hello, I'm John Knickerbocker."-->
         <v-row>
             <v-col

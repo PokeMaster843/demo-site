@@ -1,10 +1,13 @@
 <script setup>
 import PageContent from "@/components/PageContent.vue";
-import { resumePage } from "@/references";
+import { resumePage as page } from "@/references";
 </script>
 
 <template>
-    <page-content :page-title="resumePage.title" include-extension>
+    <page-content
+    :page-title="page.title"
+    :finished="page.finished"
+    include-extension>
         <template #tabs>
             <v-tab value="education">Education</v-tab>
             <v-tab value="skills">Skills</v-tab>

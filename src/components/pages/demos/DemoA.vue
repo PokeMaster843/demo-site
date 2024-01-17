@@ -7,7 +7,9 @@ import { demoA } from "@/references";
 </script>
 
 <template>
-    <demo-page :sections="demoA">
+    <demo-page
+    :sections="demoA.sections"
+    :finished="demoA.finished">
         <template #title>
             Demo Title
         </template>

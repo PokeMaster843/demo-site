@@ -31,33 +31,15 @@ function createPage(title="", icon="", to="", finished=true, hasChildren=false, 
  * @param {String} to 
  * @returns ChildPage object
  */
-function createChildPage(title="", to="", finished=true) {
+function createChildPage(title="", to="", finished=true, sections=[]) {
     return {
         title: title,
         to: to,
         finished: finished,
-        icon: "mdi-circle-small"
+        icon: "mdi-circle-small",
+        sections: sections
     };
 }
-
-// individual site Pages
-const   homePage = createPage(          "Home",              "mdi-home",   "home", false);
-const  aboutPage = createPage(      "About Me",       "mdi-information",  "about", false);
-const whyVuePage = createPage(   "Why Vue.js?",             "mdi-vuejs", "whyvue", false);
-const resumePage = createPage(        "Resumé",      "mdi-file-account", "resume", false);
-const  demosPage = createPage("Demonstrations", "mdi-application-array",  "demos", false, true, [
-    createChildPage("Demo 1", "demoA", false),
-    createChildPage("Demo 2", "demoB", false),
-    createChildPage("Demo 3", "demoC", false)
-]);
-// array of all site Pages
-const sitePages = ref([
-    homePage,
-    aboutPage,
-    whyVuePage,
-    resumePage,
-    demosPage
-]);
 
 /**
  * Creates an InfoSection object; used for rendering detailed
@@ -74,13 +56,45 @@ function createInfoSection(name, title) {
     };
 }
 
-// InfoSections for demoA
-const demoA = ref([
+// individual site Pages
+const   homePage = createPage(          "Home",              "mdi-home",   "home", false);
+const  aboutPage = createPage(      "About Me",       "mdi-information",  "about", false);
+const whyVuePage = createPage(   "Why Vue.js?",             "mdi-vuejs", "whyvue", false);
+const resumePage = createPage(        "Resumé",      "mdi-file-account", "resume", false);
+
+const demoA = createChildPage("Demo A", "demoA", false, [
     createInfoSection("detailsA", "Details A"),
     createInfoSection("detailsB", "Details B"),
     createInfoSection("detailsC", "Details C"),
     createInfoSection("detailsD", "Details D"),
     createInfoSection("detailsE", "Details E")
+]);
+const demoB = createChildPage("Demo B", "demoB", false, [
+    createInfoSection("detailsA", "Details A"),
+    createInfoSection("detailsB", "Details B"),
+    createInfoSection("detailsC", "Details C"),
+    createInfoSection("detailsD", "Details D"),
+    createInfoSection("detailsE", "Details E")
+]);
+const demoC = createChildPage("Demo C", "demoC", false, [
+    createInfoSection("detailsA", "Details A"),
+    createInfoSection("detailsB", "Details B"),
+    createInfoSection("detailsC", "Details C"),
+    createInfoSection("detailsD", "Details D"),
+    createInfoSection("detailsE", "Details E")
+]);
+const  demosPage = createPage("Demonstrations", "mdi-application-array",  "demos", false, true, [
+    demoA,
+    demoB,
+    demoC
+]);
+// array of all site Pages
+const sitePages = ref([
+    homePage,
+    aboutPage,
+    whyVuePage,
+    resumePage,
+    demosPage
 ]);
 
 export {
@@ -94,5 +108,7 @@ export {
     sitePages,
 
     createInfoSection,
-    demoA
+    demoA,
+    demoB,
+    demoC,
 };

@@ -8,6 +8,10 @@ defineProps({
     sections: {
         type: Array,
         required: true
+    },
+    finished: {
+        type: Boolean,
+        default: true
     }
 });
 </script>
@@ -22,6 +26,14 @@ defineProps({
             <div
             class="text-h4 text-md-h3 w-100">
                 <slot name="title"></slot>
+                <v-icon
+                v-if="!finished"
+                size="56"
+                class="mx-4"
+                color="warning"
+                icon="mdi-hammer-wrench"
+                title="This page is under construction.">
+                </v-icon>
             </div>
 
             <div

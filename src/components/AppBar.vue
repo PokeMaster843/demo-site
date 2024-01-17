@@ -1,8 +1,11 @@
 <script setup>
 import { useDisplay } from "vuetify";
+
 import { store } from "@/reactives";
+import { useThemeStore } from "@/stores/theme";
 
 const { mdAndUp } = useDisplay();
+const themeStore = useThemeStore();
 
 defineProps({
     pageTitle: {
@@ -12,6 +15,10 @@ defineProps({
     includeExtension: {
         type: Boolean,
         default: false
+    },
+    finished: {
+        type: Boolean,
+        default: true
     }
 });
 </script>
@@ -20,14 +27,22 @@ defineProps({
     <v-app-bar>
         <v-app-bar-nav-icon
         v-if="!mdAndUp"
+        :color="themeStore.color"
         @click="store.toggleNavDrawer()"
-        color="accent-color"
         data-cy="sm-menu">
         </v-app-bar-nav-icon>
 
         <v-toolbar-title
         data-cy="page-title">
             {{ pageTitle }}
+
+            <v-icon
+            v-if="!finished"
+            class="mx-4"
+            color="warning"
+            icon="mdi-hammer-wrench"
+            title="This page is under construction.">
+            </v-icon>
         </v-toolbar-title>
 
         <template

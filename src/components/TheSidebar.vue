@@ -35,6 +35,7 @@ defineProps({
                 v-if="!page.hasChildren"
                 :title="page.title"
                 :to="{name: page.to}"
+                :finished="page.finished"
                 :icon="page.icon"
                 :data-cy="'page-link-' + page.to">
                 </page-link>
@@ -60,6 +61,7 @@ defineProps({
                     :key="subindex"
                     :title="child.title"
                     :to="{name: child.to}"
+                    :finished="page.finished"
                     :data-cy="'child-link-' + child.to">
                     </page-link>
                 </v-list-group>

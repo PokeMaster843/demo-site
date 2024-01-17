@@ -16,6 +16,10 @@ defineProps({
     includeExtension: {
         type: Boolean,
         default: false
+    },
+    finished: {
+        type: Boolean,
+        default: true
     }
 });
 </script>
@@ -24,6 +28,7 @@ defineProps({
     <!--app bar element; props are passed forward-->
     <app-bar
     :page-title="pageTitle"
+    :finished="finished"
     :include-extension="includeExtension">
         <v-tabs
         v-model="store.tabs"

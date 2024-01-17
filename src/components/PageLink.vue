@@ -15,6 +15,10 @@ defineProps({
     icon: {
         type: String,
         default: "mdi-circle-small"
+    },
+    finished: {
+        type: Boolean,
+        default: true
     }
 });
 </script>
@@ -39,6 +43,15 @@ defineProps({
             <v-icon
             :icon="icon"
             :color="store.color">
+            </v-icon>
+        </template>
+
+        <template v-slot:append>
+            <v-icon
+            v-if="!finished"
+            icon="mdi-hammer-wrench"
+            color="warning"
+            title="This page is not yet finished.">
             </v-icon>
         </template>
     </v-list-item>

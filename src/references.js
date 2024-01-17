@@ -12,11 +12,12 @@ import { ref } from "vue";
  * @param {Array} children 
  * @returns Page object
  */
-function createPage(title="", icon="", to="", hasChildren=false, children=[]) {
+function createPage(title="", icon="", to="", finished=true, hasChildren=false, children=[]) {
     return {
         title: title,
         icon: icon,
         to: to,
+        finished: finished,
         hasChildren: hasChildren,
         children: children
     };
@@ -30,23 +31,24 @@ function createPage(title="", icon="", to="", hasChildren=false, children=[]) {
  * @param {String} to 
  * @returns ChildPage object
  */
-function createChildPage(title="", to="") {
+function createChildPage(title="", to="", finished=true) {
     return {
         title: title,
         to: to,
+        finished: finished,
         icon: "mdi-circle-small"
     };
 }
 
 // individual site Pages
-const   homePage = createPage(          "Home",              "mdi-home",   "home");
-const  aboutPage = createPage(      "About Me",       "mdi-information",  "about");
-const whyVuePage = createPage(   "Why Vue.js?",             "mdi-vuejs", "whyvue");
-const resumePage = createPage(        "Resumé",      "mdi-file-account", "resume");
-const  demosPage = createPage("Demonstrations", "mdi-application-array",  "demos", true, [
-    createChildPage("Demo 1", "demoA"),
-    createChildPage("Demo 2", "demoB"),
-    createChildPage("Demo 3", "demoC")
+const   homePage = createPage(          "Home",              "mdi-home",   "home", false);
+const  aboutPage = createPage(      "About Me",       "mdi-information",  "about", false);
+const whyVuePage = createPage(   "Why Vue.js?",             "mdi-vuejs", "whyvue", false);
+const resumePage = createPage(        "Resumé",      "mdi-file-account", "resume", false);
+const  demosPage = createPage("Demonstrations", "mdi-application-array",  "demos", false, true, [
+    createChildPage("Demo 1", "demoA", false),
+    createChildPage("Demo 2", "demoB", false),
+    createChildPage("Demo 3", "demoC", false)
 ]);
 // array of all site Pages
 const sitePages = ref([

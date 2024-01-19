@@ -11,5 +11,6 @@ export default defineConfig({
       framework: "vue",
       bundler: "vite",
     },
+    specPattern: "src/**/*.{cy,spec}.{js,jsx,ts,tsx}"
   },
 });

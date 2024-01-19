@@ -40,9 +40,12 @@ defineProps({
     :size="size"
     :color="color"
     :value="value"
-    @click="if(!activator) { selected = value; }">
+    @click="if(!activator) { selected = value; }"
+    data-cy="icon-btn">
         <template v-slot:default>
-            <v-icon :color="iconColor"></v-icon>
+            <v-icon
+            :color="iconColor"
+            data-cy="icon-btn-icon"></v-icon>
         </template>
     </v-btn>
 </template>

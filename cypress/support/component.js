@@ -30,6 +30,7 @@ import { createPinia } from "pinia";
 import { mount } from "cypress/vue";
 import { h } from "vue";
 import { VLayout } from "vuetify/components/VLayout";
+import { VMain } from "vuetify/components/VMain";
 
 const router = createRouter({
     history: createMemoryHistory(),
@@ -58,7 +59,26 @@ const router = createRouter({
 const pinia = createPinia();
 
 Cypress.Commands.add("mount", (component, options = {}) => {
-    return mount(() => h(VLayout, {}, [h(component, options.props || {}, options.slots || {})]), {
+    return mount(() => h(
+        VLayout,
+        {},
+        [
+            h(
+                VMain,
+                {
+                    style: "min-width: 100vw; min-height: 100vh; height: fit-content;"
+                },
+                [
+                    h(
+                        component,
+                        options.props || {},
+                        options.slots || {}
+                    )
+                ]
+            )
+        ]
+    ),
+    {
         global: {
             stubs: {
                 transition: false

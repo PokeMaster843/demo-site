@@ -78,11 +78,11 @@ defineEmits(['close', 'submit']);
         :props="{ onClick: () => { show = !show; } }"></slot>
     </div>
 
-    <teleport to="#app">
+    <teleport to="body">
         <div
         class="modal-mask"
         :class="{show: show, hidden: !show}"
-        @click="show = !show">
+        @click.stop="show = !show">
             <v-container
             class="popup"
             :class="{'rounded-xl': rounded}"
@@ -104,7 +104,8 @@ defineEmits(['close', 'submit']);
                         :rounded="btnRounded"
                         :ripple="btnRipple"
                         :variant="btnVariant"
-                        @click="$emit('close'); show = !show;">
+                        @click="$emit('close'); show = !show;"
+                        data-cy="modal-close-btn">
                             {{ closeBtnText }}
                         </v-btn>
                     </v-col>
@@ -119,7 +120,8 @@ defineEmits(['close', 'submit']);
                         :rounded="btnRounded"
                         :ripple="btnRipple"
                         :variant="btnVariant"
-                        @click="$emit('submit'); show = !show;">
+                        @click="$emit('submit'); show = !show;"
+                        data-cy="modal-submit-btn">
                             {{ submitBtnText }}
                         </v-btn>
                     </v-col>

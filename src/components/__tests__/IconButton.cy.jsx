@@ -2,7 +2,6 @@ import IconButton from "@/components/IconButton.vue";
 
 describe("<IconButton />", () => {
     it("renders with default props", () => {
-        // see: https://on.cypress.io/mounting-vue
         cy.mount(() => (
             <IconButton></IconButton>
         ));

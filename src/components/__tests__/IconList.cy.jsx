@@ -3,7 +3,6 @@ import IconButton from "@/components/IconButton.vue";
 
 describe("<IconList />", () => {
     it("renders list contracted by default", () => {
-        // see: https://on.cypress.io/mounting-vue
         cy.mount(() => (
             <IconList>
                 {{
@@ -34,7 +33,6 @@ describe("<IconList />", () => {
     });
 
     it("renders expanded list correctly", () => {
-        // see: https://on.cypress.io/mounting-vue
         cy.mount(() => (
             <IconList expanded>
                 {{
@@ -81,7 +79,6 @@ describe("<IconList />", () => {
     });
 
     it("renders expanded horizontal list correctly", () => {
-        // see: https://on.cypress.io/mounting-vue
         cy.mount(() => (
             <IconList
             expanded
@@ -130,7 +127,6 @@ describe("<IconList />", () => {
     });
 
     it("renders expanded reverse list correctly", () => {
-        // see: https://on.cypress.io/mounting-vue
         cy.mount(() => (
             <IconList
             expanded
@@ -179,7 +175,6 @@ describe("<IconList />", () => {
     });
 
     it("renders expanded list correctly when 'activator-first' is set", () => {
-        // see: https://on.cypress.io/mounting-vue
         cy.mount(() => (
             <IconList
             expanded

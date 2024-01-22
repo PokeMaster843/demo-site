@@ -2,17 +2,17 @@ import AppBar from "@/components/AppBar.vue";
 
 describe("<AppBar />", () => {
     it("renders with page title", () => {
-        // see: https://on.cypress.io/mounting-vue
         cy.mount(() => (
             <AppBar page-title="Test Page Title">
             </AppBar>
         ));
 
         cy.getById("page-title")
-        .should("have.text", "Test Page Title");
+        .contains("div", "Test Page Title")
+        .should("exist");
     });
 
-    it("button for controlling sidebar does not appear on larger screens", () => {
+    it("does not display button for controlling sidebar on desktop/larger screen sizes", () => {
         cy.desktop();
         cy.mount(() => (
             <AppBar page-title="Test Page Title">
@@ -23,7 +23,7 @@ describe("<AppBar />", () => {
         .should("not.exist");
     });
 
-    it("button for controlling sidebar shows up on smaller screens", () => {
+    it("displays button for controlling sidebar on mobile/smaller screen sizes", () => {
         cy.mobile();
         cy.mount(() => (
             <AppBar page-title="Test Page Title">
@@ -34,7 +34,7 @@ describe("<AppBar />", () => {
         .should("exist");
     });
 
-    it("app bar extension renders when prop is set", () => {
+    it("renders app bar extension when prop is set", () => {
         cy.mount(() => (
             <AppBar
             page-title="Test Page Title"
@@ -42,7 +42,23 @@ describe("<AppBar />", () => {
             </AppBar>
         ));
 
-        cy.get("div .v-toolbar__extension")
-        .should("exist");
+        cy.get("div.v-toolbar__extension")
+        .should("exist")
+        .should("be.visible");
+    });
+
+    it("app bar extension renders unfinished icon when 'finished' prop is set to false", () => {
+        cy.mount(() => (
+            <AppBar
+            page-title="Test Page Title"
+            finished={false}>
+            </AppBar>
+        ));
+
+        cy.getById("page-title")
+        .find("i.mdi-hammer-wrench")
+        .should("exist")
+        .should("be.visible")
+        .should("have.class", "text-warning");
     });
 });

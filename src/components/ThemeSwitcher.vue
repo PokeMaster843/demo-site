@@ -40,7 +40,8 @@ function switchColor(newColor) {
     style="position: fixed; bottom: 2em; right: 2em;">
         <icon-list
         v-model:expanded="store.listExpanded"
-        v-model:selected="store.color">
+        v-model:selected="store.color"
+        data-cy="theme-colors-list">
             <template #activator="{ props }">
                 <icon-button
                 v-bind="props"
@@ -48,14 +49,15 @@ function switchColor(newColor) {
                 color="surface"
                 :icon-color="store.color"
                 title="Select accent color"
-                activator>
+                activator
+                data-cy="theme-colors-list--activator">
                 </icon-button>
             </template>
 
             <template
             v-if="!xs">
                 <modal-popup
-                v-model="popup"
+                v-model:show="popup"
                 close-btn-text="Cancel"
                 submit-btn-text="Use Color"
                 @submit="switchColor(customColor)"
@@ -67,14 +69,16 @@ function switchColor(newColor) {
                         :icon-color="store.currentCustomValue"
                         :value="store.currentCustomValue"
                         title="Select custom accent color"
-                        activator>
+                        activator
+                        data-cy="theme-colors-list--custom-select">
                         </icon-button>
                     </template>
 
                     <v-color-picker
                     :modes="['hex']"
                     v-model:model-value="customColor"
-                    elevation="0">
+                    elevation="0"
+                    data-cy="modal-color-picker">
                     </v-color-picker>
                 </modal-popup>
             </template>
@@ -93,7 +97,8 @@ function switchColor(newColor) {
         title="Toggle dark mode"
         @click="toggleDark()"
         :icon-color="store.color"
-        activator>
+        activator
+        data-cy="theme-toggle-dark">
         </icon-button>
     </div>
 </template>

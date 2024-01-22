@@ -1,4 +1,6 @@
 <script setup>
+// library imports
+
 // project imports
 import { useThemeStore } from "@/stores/theme";
 

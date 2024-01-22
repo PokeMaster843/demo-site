@@ -1,5 +1,8 @@
 <script setup>
-import { useThemeStore } from '@/stores/theme';
+// library imports
+
+// project imports
+import { useThemeStore } from "@/stores/theme";
 
 const store = useThemeStore();
 
@@ -26,7 +29,8 @@ defineProps({
 <template>
     <v-list-item
     v-if="to === null"
-    :title="title">
+    :title="title"
+    data-cy="page-link">
         <template v-slot:prepend>
             <v-icon
             :icon="icon"
@@ -38,7 +42,8 @@ defineProps({
     <v-list-item
     v-else
     :title="title"
-    :to="to">
+    :to="to"
+    data-cy="page-link">
         <template v-slot:prepend>
             <v-icon
             :icon="icon"

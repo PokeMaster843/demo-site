@@ -2,6 +2,8 @@
 // library imports
 import { useDisplay } from "vuetify";
 
+// project imports
+
 const { xs } = useDisplay();
 
 defineProps({

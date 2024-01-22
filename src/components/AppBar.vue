@@ -1,6 +1,8 @@
 <script setup>
+// library imports
 import { useDisplay } from "vuetify";
 
+// project imports
 import { store } from "@/reactives";
 import { useThemeStore } from "@/stores/theme";
 

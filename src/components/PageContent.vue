@@ -4,9 +4,9 @@
 // project imports
 import AppBar from "@/components/AppBar.vue";
 import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
-import { useTabStore } from "@/stores/tab";
 
-const store = useTabStore();
+// eslint-disable-next-line no-undef
+const tabs = defineModel("tabs");
 
 defineProps({
     pageTitle: {
@@ -31,7 +31,7 @@ defineProps({
     :finished="finished"
     :include-extension="includeExtension">
         <v-tabs
-        v-model="store.tabs"
+        v-model="tabs"
         align-tabs="title">
             <slot name="tabs"></slot>
         </v-tabs>
@@ -39,14 +39,14 @@ defineProps({
 
     <!--main container element-->
     <v-main
-    class="page-container">
+    class="bg-surface-variant mh-screen h-auto">
         <!--VContainer allows pages to use VRow and VCol for layouts-->
         <v-container
         class="page-content"
         fluid>
             <v-window
             v-if="includeExtension"
-            v-model="store.tabs">
+            v-model="tabs">
                 <slot name="window"></slot>
             </v-window>
 
@@ -59,9 +59,4 @@ defineProps({
 </template>
 
 <style scoped>
-.page-container {
-    background-color: rgb(var(--v-theme-surface-variant));
-    min-height: 100vh;
-    height: fit-content;
-}
 </style>

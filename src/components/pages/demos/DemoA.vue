@@ -3,13 +3,15 @@
 
 // project imports
 import DemoPage from "@/components/DemoPage.vue";
-import { demoA } from "@/references";
+import { usePageStore } from "@/stores/page";
+
+const store = usePageStore();
 </script>
 
 <template>
     <demo-page
-    :sections="demoA.sections"
-    :finished="demoA.finished">
+    :sections="store.demoA.sections"
+    :finished="store.demoA.finished">
         <template #title>
             Demo Title
         </template>

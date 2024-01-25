@@ -1,12 +1,14 @@
 <script setup>
 import PageContent from "@/components/PageContent.vue";
-import { demosPage as page } from "@/references";
+import { usePageStore } from "@/stores/page";
+
+const store = usePageStore();
 </script>
 
 <template>
     <page-content
-    :page-title="page.title"
-    :finished="finished">
+    :page-title="store.demosPage.title"
+    :finished="store.demosPage.finished">
         <router-view></router-view>
     </page-content>
 </template>

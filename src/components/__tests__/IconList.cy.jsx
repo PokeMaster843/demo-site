@@ -3,10 +3,11 @@ import IconButton from "@/components/IconButton.vue";
 
 describe("<IconList />", () => {
     it("renders list contracted by default", () => {
+        var expanded = false;
         cy.mount(() => (
-            <IconList>
+            <IconList expanded={expanded}>
                 {{
-                    activator: () => (<IconButton activator></IconButton>),
+                    activator: ({ props }) => (<IconButton {...props} activator></IconButton>),
                     default: () => (
                         <>
                             <IconButton
@@ -32,11 +33,12 @@ describe("<IconList />", () => {
         .should("be.visible");
     });
 
-    it("renders expanded list correctly", () => {
+    it("activator button expands list properly", () => {
+        var expanded = false;
         cy.mount(() => (
-            <IconList expanded>
+            <IconList expanded={expanded}>
                 {{
-                    activator: () => (<IconButton activator></IconButton>),
+                    activator: ({ props }) => (<IconButton {...props} activator></IconButton>),
                     default: () => (
                         <>
                             <IconButton
@@ -52,6 +54,15 @@ describe("<IconList />", () => {
                 }}
             </IconList>
         ));
+        
+        // list items initially not visible
+        cy.getById("icon-list-items")
+        .should("not.be.visible");
+        
+        // click activator to expand list
+        cy.getById("icon-list-activator")
+        .find("button.v-btn")
+        .click();
 
         // renders list items before activator
         cy.getById("icon-list-container")
@@ -77,14 +88,14 @@ describe("<IconList />", () => {
         cy.getById("icon-list-activator")
         .should("be.visible");
     });
-
+    
     it("renders expanded horizontal list correctly", () => {
         cy.mount(() => (
             <IconList
             expanded
             horizontal>
                 {{
-                    activator: () => (<IconButton activator></IconButton>),
+                    activator: ({ props }) => (<IconButton {...props} activator></IconButton>),
                     default: () => (
                         <>
                             <IconButton
@@ -132,7 +143,7 @@ describe("<IconList />", () => {
             expanded
             reverse>
                 {{
-                    activator: () => (<IconButton activator></IconButton>),
+                    activator: ({ props }) => (<IconButton {...props} activator></IconButton>),
                     default: () => (
                         <>
                             <IconButton
@@ -180,7 +191,7 @@ describe("<IconList />", () => {
             expanded
             activator-first>
                 {{
-                    activator: () => (<IconButton activator></IconButton>),
+                    activator: ({ props }) => (<IconButton {...props} activator></IconButton>),
                     default: () => (
                         <>
                             <IconButton

@@ -72,7 +72,8 @@ defineEmits(['close', 'submit']);
 
 <template>
     <div
-    @click.stop>
+    @click.stop
+    data-cy="modal-activator">
         <slot
         name="activator"
         :props="{ onClick: () => { show = !show; } }"></slot>
@@ -82,7 +83,8 @@ defineEmits(['close', 'submit']);
         <div
         class="modal-mask"
         :class="{show: show, hidden: !show}"
-        @click.stop="show = !show">
+        @click.stop="show = !show"
+        data-cy="modal-mask">
             <v-container
             class="popup"
             :class="{'rounded-xl': rounded}"
@@ -91,7 +93,9 @@ defineEmits(['close', 'submit']);
             fluid>
                 <v-row>
                     <v-col>
-                        <slot></slot>
+                        <div data-cy="modal-content">
+                            <slot></slot>
+                        </div>
                     </v-col>
                 </v-row>
 

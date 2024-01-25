@@ -2,9 +2,6 @@
 // library imports
 
 // project imports
-import { useThemeStore } from "@/stores/theme";
-
-const store = useThemeStore();
 
 defineProps({
     title: {
@@ -30,27 +27,16 @@ defineProps({
     <v-list-item
     v-if="to === null"
     :title="title"
+    :prepend-icon="icon"
     data-cy="page-link">
-        <template v-slot:prepend>
-            <v-icon
-            :icon="icon"
-            :color="store.color">
-            </v-icon>
-        </template>
     </v-list-item>
 
     <v-list-item
     v-else
     :title="title"
     :to="to"
+    :prepend-icon="icon"
     data-cy="page-link">
-        <template v-slot:prepend>
-            <v-icon
-            :icon="icon"
-            :color="store.color">
-            </v-icon>
-        </template>
-
         <template v-slot:append>
             <v-icon
             v-if="!finished"

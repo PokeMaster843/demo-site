@@ -3,16 +3,16 @@
 import { useDisplay } from "vuetify";
 
 // project imports
-import { sitePages } from "@/references";
-import { store } from "@/reactives";
+import { usePageStore } from "@/stores/page";
 import PageLink from "@/components/PageLink.vue";
 
 const { mdAndUp } = useDisplay();
+const store = usePageStore();
 
 defineProps({
     pages: {
         type: Array,
-        default: sitePages.value
+        default: undefined
     }
 });
 </script>
@@ -28,7 +28,7 @@ defineProps({
     data-cy="nav-drawer">
         <v-list nav>
             <template
-            v-for="(page, index) in pages"
+            v-for="(page, index) in (pages || store.sitePages)"
             :key="index">
                 <!--render link normally if page has no children-->
                 <page-link

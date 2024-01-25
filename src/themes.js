@@ -8,7 +8,7 @@ function mixLight() {
             secondary: "#9e9e9e",
             surface: "#ffffff",
             "surface-variant": "#d1d1d1",
-            invert: "#121212",
+            "on-surface-variant": "#121212",
 
             // accent colors
             default: "#000000",
@@ -26,7 +26,7 @@ function mixDark() {
         dark: true,
         colors: {
             "surface-variant": "#2e2e2e",
-            invert: "#ededed",
+            "on-surface-variant": "#ededed",
 
             // accent colors
             default: "#ffffff",
@@ -34,7 +34,7 @@ function mixDark() {
             teal: colors.teal.lighten2,
             indigo: colors.indigo.lighten2,
 
-            highlight: "#aaaaaa"
+            highlight: "#776677"
         }
     };
 }

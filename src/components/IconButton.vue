@@ -4,7 +4,7 @@ import { inject } from "vue";
 
 // project imports
 
-const selected = inject("selected");
+const selected = inject("selected", null);
 
 defineProps({
     icon: {
@@ -13,7 +13,7 @@ defineProps({
     },
     iconColor: {
         type: String,
-        default: ""
+        default: undefined
     },
     size: {
         type: Number,
@@ -46,8 +46,8 @@ defineProps({
     data-cy="icon-btn">
         <template v-slot:default>
             <v-icon
-            :color="iconColor"
-            data-cy="icon-btn-icon"></v-icon>
+            v-if="iconColor !== undefined"
+            :color="iconColor"></v-icon>
         </template>
     </v-btn>
 </template>

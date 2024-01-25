@@ -1,5 +1,5 @@
 import TheSidebar from "@/components/TheSidebar.vue";
-import { createPage, createChildPage } from "@/references";
+import { createPage, createChildPage } from "@/stores/page";
 
 const testPages = [
     createPage("Home Page", "mdi-home", "home"),

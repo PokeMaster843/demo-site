@@ -3,11 +3,10 @@
 import { useDisplay } from "vuetify";
 
 // project imports
-import { store } from "@/reactives";
-import { useThemeStore } from "@/stores/theme";
+import { usePageStore } from "@/stores/page";
 
 const { mdAndUp } = useDisplay();
-const themeStore = useThemeStore();
+const store = usePageStore();
 
 defineProps({
     pageTitle: {
@@ -29,7 +28,6 @@ defineProps({
     <v-app-bar>
         <v-app-bar-nav-icon
         v-if="!mdAndUp"
-        :color="themeStore.color"
         @click="store.toggleNavDrawer()"
         data-cy="sm-menu">
         </v-app-bar-nav-icon>

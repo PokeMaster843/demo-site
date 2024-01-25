@@ -1,0 +1,15 @@
+/* .mh-auto serves no use */
+/* .mh-0 serves no use */
+.mh-screen { min-height: 100dvh; }
+.mh-25 { min-height: 25%; }
+.mh-50 { min-height: 50%; }
+.mh-75 { min-height: 75%; }
+.mh-100 { min-height: 100%; }
+
+/* .mw-auto serves no use */
+/* .mw-0 serves no use */
+.mw-screen { min-width: 100dvw; }
+.mw-25 { min-width: 25%; }
+.mw-50 { min-width: 50%; }
+.mw-75 { min-width: 75%; }
+.mw-100 { min-width: 100%; }

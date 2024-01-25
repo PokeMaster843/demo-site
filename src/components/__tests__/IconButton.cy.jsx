@@ -28,9 +28,8 @@ describe("<IconButton />", () => {
         .should("have.css", "width", "64px")
         .should("have.css", "height", "64px")
         .should("have.class", "bg-indigo")
-        .should("have.value", "test");
-        
-        cy.getById("icon-btn-icon")
+        .should("have.value", "test")
+        .find("i.v-icon")
         .should("have.class", "mdi-circle")
         .should("have.class", "text-amber");
     });
